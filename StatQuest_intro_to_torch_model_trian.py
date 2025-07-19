@@ -44,6 +44,10 @@ def main():
     input = torch.tensor([0., 0.5, 0.])
     labels = torch.tensor([0., 1., 0.])
 
+    optimizer = optim.SGD(model.parameters(), lr=0.1)
+
+    print("Final bias, before optimization: " + str(model.final_bias.data) + "\n")
+
     model = BasicNN_train()
 
     output_values = model(input_doses)
