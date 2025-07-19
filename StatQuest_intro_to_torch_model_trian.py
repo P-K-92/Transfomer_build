@@ -52,7 +52,7 @@ def main():
 
     epochs = 100
     
-    for epoch in epochs:
+    for epoch in range(epochs):
         
         total_loss = 0
         
@@ -79,7 +79,7 @@ def main():
         print(f"Step: {epoch} | Final bias: {model.final_bias.data}")
 
     print(f"Final bias, before optimization: {model.final_bias.data}")
-    
+
     sns.set_theme(style="whitegrid")
     sns.lineplot(x=inputs,
                  y=output_values.detach(),
