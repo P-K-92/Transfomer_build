@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.functional as F
+import torch.nn.functional as F
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -36,3 +36,24 @@ class BasicNN(nn.Module):
         output = F.relu(input_to_final_relu)
 
         return output
+    
+
+def main():
+    input_doses = torch.linspace(0, 1, 11)
+
+    model = BasicNN()
+
+    output_values = model(input_doses)
+
+    sns.set_theme(style="whitegrid")
+    sns.lineplot(x=input_doses,
+                 y=output_values,
+                 color="green",
+                 linewidth=2.5)
+
+    plt.ylabel("Effectiveness")
+    plt.xlabel("Dosage")
+    plt.show()
+
+if __name__ == "__main__":
+    main()
