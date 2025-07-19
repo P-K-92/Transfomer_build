@@ -39,7 +39,7 @@ class BasicNN_train(nn.Module):
     
 
 def main():
-    # input_doses = torch.linspace(0, 1, 11)
+    input_doses = torch.linspace(0, 1, 11)
 
     model = BasicNN_train()
 
@@ -80,8 +80,10 @@ def main():
 
     print(f"Final bias, before optimization: {model.final_bias.data}")
 
+    output_values = model(input_doses)
+
     sns.set_theme(style="whitegrid")
-    sns.lineplot(x=inputs,
+    sns.lineplot(x=input_doses,
                  y=output_values.detach(),
                  color="green",
                  linewidth=2.5)
