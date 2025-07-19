@@ -41,6 +41,9 @@ class BasicNN_train(nn.Module):
 def main():
     input_doses = torch.linspace(0, 1, 11)
 
+    input = [0., 0.5, 0.]
+    labels = [0., 1., 0.]
+
     model = BasicNN_train()
 
     output_values = model(input_doses)
