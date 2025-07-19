@@ -39,7 +39,7 @@ class BasicNN_train(nn.Module):
     
 
 def main():
-    input_doses = torch.linspace(0, 1, 11)
+    input_doses = torch.linspace(0, 1, 100)
 
     model = BasicNN_train()
 
@@ -76,9 +76,9 @@ def main():
         optimizer.step()
         optimizer.zero_grad()
 
-        print(f"Step: {epoch} | Final bias: {model.final_bias.data}")
+        print(f"Step: {epoch} | Final bias: {round(model.final_bias.data.item(), 2)}")
 
-    print(f"Final bias, before optimization: {model.final_bias.data}")
+    print(f"Final bias, before optimization: {round(model.final_bias.data.item(), 2)}\n")
 
     output_values = model(input_doses)
 
