@@ -39,21 +39,49 @@ class BasicNN_train(nn.Module):
     
 
 def main():
-    input_doses = torch.linspace(0, 1, 11)
+    # input_doses = torch.linspace(0, 1, 11)
 
-    input = torch.tensor([0., 0.5, 0.])
+    model = BasicNN_train()
+
+    inputs = torch.tensor([0., 0.5, 0.])
     labels = torch.tensor([0., 1., 0.])
 
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
     print("Final bias, before optimization: " + str(model.final_bias.data) + "\n")
 
-    model = BasicNN_train()
+    epochs = 100
+    
+    for epoch in epochs:
+        
+        total_loss = 0
+        
+        for iteration in range(len(inputs)):
 
-    output_values = model(input_doses)
+            input_i = inputs[iteration]
+            label_i = labels[iteration]
 
+            output_i = model(input_i)
+
+            loss = (output_i - label_i)**2
+
+            loss.backward()
+
+            total_loss += float(loss)
+
+        if (total_loss < 0.0001):
+            print("Num steps: " + str(epoch))
+            break
+
+        optimizer.step()
+        optimizer.zero_grad()
+
+        print(f"Step: {epoch} | Final bias: {model.final_bias.data}")
+
+    print(f"Final bias, before optimization: {model.final_bias.data}")
+    
     sns.set_theme(style="whitegrid")
-    sns.lineplot(x=input_doses,
+    sns.lineplot(x=inputs,
                  y=output_values.detach(),
                  color="green",
                  linewidth=2.5)
